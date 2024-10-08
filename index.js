@@ -1,44 +1,69 @@
-const CityName = document.querySelector('.weather_city');
-let dateTime = document.querySelector("weather_date_time");
-let w_forecast = document.querySelector("weather_forecast");
-let w_icon = document.querySelector("weather_icon");
-let w_temperature = document.querySelector("weather_temperature");
-let w_minTem = document.querySelector("weather_min");
-let w_maxTem = document.querySelector("weather_max");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Api </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="container">
+        <!-- input Field Search -->
+        <div class="weather_header">
+            <form  class="weather_search">
+                <i id="searchIcon"  class="fa-brands fa-searchengin"></i>
+                <input type="text" class="cityName" placeholder="Search Your City">
+            </form>
+        </div>
+        <!-- Weather main Data -->
+        <div class="weather_body">
+            <h1 class="weather_city"></h1>
+            <p class="weather_date_time"></p>
+            <div class="weather_data">
+                <p class="weather_forecast"></p>
+                <div class="weather_icon"></div>
+            </div>
+            <div class="weather_temperature"></div>
+            <div class="weather_minMax">
+                <p class="weather_min"></p>
+                <p class="weather_max"></p>
+            </div>
+            
+        </div>
+        <!-- Weather Extra Data -->
+         <section class="weather_info">
+            <div class="weather_card">
+                <i  class="fa-solid fa-temperature-low"></i>
+                <div>
+                    <p>Feels Like</p>
+                    <p class="weather_feels">15&#176</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <i class="fa-solid fa-droplet"></i>
+                <div>
+                    <p>Feels Like</p>
+                    <p class="weather_humidity">15&#176</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <div>
+                    <i class="fa-solid fa-wind"></i>
+                    <p>Wind</p>
+                    <p class="weather_wind">15&#176</p>
+                </div>
+            </div>
+            <div class="weather_card">
+                <i class="fa-solid fa-gauge-high"></i>
+                <div>
+                    <p>Pressure</p>
+                    <p class="weather_pressure">15&#176</p>
+                </div>
+            </div>
+         </section>
+    </section>
 
-const getCountryCode=(code)=>{
-    return new Intl.DisplayNames([code], { type: 'region' }).of(code );
-}
-const getDatetime=(dt)=>{
-    const curDate = new Date(dt*1000);
-    console.log(curDate);
-    const option={
-        weekday:"long",
-        year:"numeric",
-        month:"long",
-        day:"numeric",
-        hour:"numeric",
-        minute:"numeric",
-    };
-    const formatter = new Intl.DateTimeFormat('en-US',option);
-    return  formatter.format(curDate)
-
-    
-}
-
-const getWeatherData= async()=>{
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=pune&appid=d8aa6a5f2f0f2c28e7416e4e0a240b54`;
-    try{
-        const response = await fetch(weatherUrl)
-        const data = await response.json();
-        console.log(data);
-        const {main,name,weather,wind,sys,dt}=data;
-        CityName.innerHTML =`${name},${getCountryCode(sys.country)}`;
-        dateTime.innerHTML = getDatetime(dt);
-    }
-    catch(error){
-        console.log(error);
-        
-    }
-}
-document.body.addEventListener("load",getWeatherData());
+<script src="index.js"></script>
+</body>
+</html>
